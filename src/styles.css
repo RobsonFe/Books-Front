@@ -38,7 +38,7 @@ a {
 
 .navbar {
   width: 100%;
-  background-color: var(--card-bg);
+  background-color: var(--background);
   padding: 10px 30px;
   display: flex;
   justify-content: center;
