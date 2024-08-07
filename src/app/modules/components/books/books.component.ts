@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../service/book.service';
 import { Book } from '../../model/book.model';
 import { HomeComponent } from '@/app/home/home.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [HomeComponent],
+  imports: [HomeComponent, CommonModule, FormsModule],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',
 })
@@ -29,9 +31,7 @@ export class BooksComponent implements OnInit {
 
   constructor(private bookService: BookService) {}
 
-  ngOnInit(): void {
-    this.listarBooks(1, 5);
-  }
+  ngOnInit(): void {}
 
   atualizarBook(id: number): void {
     this.bookService.atualizar(id, this.newBook).subscribe((response) => {
