@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../service/book.service';
 import { Book } from '../../model/book.model';
+import { HomeComponent } from '@/app/home/home.component';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [],
+  imports: [HomeComponent],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',
 })
@@ -68,5 +69,21 @@ export class BooksComponent implements OnInit {
       this.books = response;
       console.log('Livros listados:', this.books);
     });
+  }
+
+  limpar() {
+    this.newBook = {
+      id: 0,
+      name: '',
+      pages: 0,
+      chapters: 0,
+      isbn: '',
+      publisherName: '',
+      author: {
+        id: 0,
+        name: '',
+        age: 0,
+      },
+    };
   }
 }

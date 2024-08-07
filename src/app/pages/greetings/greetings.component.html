@@ -1,24 +1,49 @@
-<app-carousel />
-<div class="mt-10 flex flex-col justify-center items-center">
-  <div
-    class="max-w-3xl mx-auto p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-center"
-  >
-    <h1 class="text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-      Bem-vindo!
+<section
+  class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply"
+>
+  <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+    <h1
+      class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"
+    >
+      Sistema de Gerenciamento de Livros
     </h1>
-    <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
-      Ao Sistema de Gerenciamento de Livros
-    </p>
-    <p class="text-md text-gray-600 dark:text-gray-400 mb-6">
+    <p
+      class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48"
+    >
       Aqui, você pode adicionar, editar, listar, buscar e excluir livros e
       autores de forma simples e intuitiva.
     </p>
-    <a
-      routerLink="/books"
-      class="inline-block px-6 py-2 text-lg font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 text-[#f8f9fa] bg-[#0f0f0f] cursor-pointer"
+    <div
+      class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"
     >
-      Acessar o Dashboard
-    </a>
+      <a
+        routerLink="/books"
+        class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+      >
+        Vamos Começar!
+        <svg
+          class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 5h12m0 0L9 1m4 4L9 9"
+          />
+        </svg>
+      </a>
+      <a
+        routerLink="/about"
+        class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
+      >
+        Saiba Mais
+      </a>
+    </div>
     <div class="flex justify-center space-x-4 mt-6">
       <a
         href="https://github.com/RobsonFe"
@@ -46,4 +71,80 @@
       </a>
     </div>
   </div>
-</div>
+</section>
+
+<section>
+  <div
+    class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16"
+  >
+    <div class="flex flex-col justify-center">
+      <h1
+        class="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl"
+      >
+        A Leitura
+      </h1>
+      <p class="mb-8 text-lg font-normal lg:text-xl">
+        A leitura é uma das atividades mais enriquecedoras e transformadoras que
+        podemos realizar. Ela vai além de simplesmente decifrar palavras em uma
+        página; é uma jornada que nos leva a lugares distantes, nos apresenta a
+        personagens fascinantes e nos permite explorar ideias profundas. A
+        leitura constante melhora nossa habilidade de comunicação. Quanto mais
+        lemos, mais rico se torna nosso vocabulário e nossa capacidade de
+        expressar nossas ideias de maneira clara e eloquente. Livros são portais
+        para a imaginação.
+      </p>
+    </div>
+    <div>
+      <iframe
+        class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl"
+        src="https://www.youtube.com/embed/kZJnvaYMGdA"
+        title="a importancia da leitura"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</section>
+<h1
+  class="px-4 mx-auto max-w-screen-xl text-center mb-10 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"
+>
+  A Leitura Te Leva até o Imaginário
+</h1>
+<app-carousel />
+
+<figure class="max-w-screen-md mx-auto text-center">
+  <svg
+    class="w-10 h-10 mx-auto mb-3 text-gray-400 dark:text-gray-600"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 18 14"
+  >
+    <path
+      d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z"
+    />
+  </svg>
+  <blockquote>
+    <p class="text-2xl italic font-medium">
+      "A leitura nos desafia a pensar criticamente. Analisamos argumentos,
+      avaliamos evidências e formamos opiniões informadas. É um exercício mental
+      essencial."
+    </p>
+  </blockquote>
+  <figcaption
+    class="flex items-center justify-center mt-6 space-x-3 rtl:space-x-reverse"
+  >
+    <img
+      class="w-6 h-6 rounded-full"
+      src="https://i.imgur.com/thWBSJX.jpg"
+      alt="profile picture"
+    />
+    <div
+      class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 dark:divide-gray-700"
+    >
+      <cite class="pe-3 font-medium">Robson Ferreira</cite>
+      <cite class="ps-3 text-sm">CEO na Fox Hound</cite>
+    </div>
+  </figcaption>
+</figure>

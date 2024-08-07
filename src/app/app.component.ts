@@ -6,6 +6,7 @@ import { initFlowbite } from 'flowbite';
 import { FooterComponent } from './pages/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './pages/about/about.component';
+import { BooksComponent } from './modules/components/books/books.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { AboutComponent } from './pages/about/about.component';
     FooterComponent,
     HomeComponent,
     AboutComponent,
+    BooksComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

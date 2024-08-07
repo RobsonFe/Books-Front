@@ -6,7 +6,7 @@ import { GreetingsComponent } from './pages/greetings/greetings.component';
 import { BooksComponent } from './modules/components/books/books.component';
 
 export const routes: Routes = [
-  { path: ' ', component: GreetingsComponent },
+  { path: '', component: GreetingsComponent },
   { path: 'greetings', component: GreetingsComponent },
   { path: 'books', component: BooksComponent },
   { path: 'navbar', component: NavbarComponent },
