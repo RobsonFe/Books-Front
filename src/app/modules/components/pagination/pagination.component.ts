@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { PaginationService } from '../../service/pagination.service';
 import { BookService } from '../../service/book.service';
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pagination',
@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css'],
-  providers: [HttpClient],
 })
 export class PaginationComponent implements OnInit {
   books: any[] = [];
@@ -17,24 +16,28 @@ export class PaginationComponent implements OnInit {
   totalPages: number = 1;
   pageSize: number = 5;
 
-  constructor(private bookService: BookService) {}
+  constructor(
+    private paginationService: PaginationService,
+    private bookService: BookService
+  ) {}
 
   ngOnInit(): void {
-    this.listarBooks(this.currentPage, this.pageSize);
+    this.paginationService.currentPage$.subscribe((page) => {
+      this.currentPage = page;
+      this.listarBooks(page, this.pageSize);
+    });
   }
 
   listarBooks(page: number, pageSize: number): void {
     this.bookService.listar(page - 1, pageSize).subscribe((response: any) => {
-      console.log('Resposta da API:', response);
       this.books = response.content || [];
-      this.currentPage = response.number + 1; // Atualiza a página atual (+1 porque o número da página é baseado em zero)
-      this.totalPages = response.totalPages; // Atualiza o total de páginas
+      this.totalPages = response.totalPages;
     });
   }
 
   goToPage(page: number): void {
     if (page > 0 && page <= this.totalPages && page !== this.currentPage) {
-      this.listarBooks(page, this.pageSize);
+      this.paginationService.setCurrentPage(page);
     }
   }
 }
