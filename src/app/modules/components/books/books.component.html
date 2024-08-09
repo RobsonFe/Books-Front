@@ -1,5 +1,21 @@
 <app-home />
 <form class="max-w-md mx-auto" (ngSubmit)="criarBook()">
+  <div
+    class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+    role="alert"
+    *ngIf="sucess"
+  >
+    <span class="font-medium">O Livro foi Salvo!</span> Acesse nosso o catálogo
+    de livros.
+  </div>
+  <div
+    class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+    role="alert"
+    *ngIf="erro"
+  >
+    <span class="font-medium">Algo de errado!</span> Tente novamente daqui
+    alguns minutos.
+  </div>
   <div class="grid md:grid-cols-2 md:gap-6">
     <div class="relative z-0 w-full mb-5 group">
       <input
@@ -58,6 +74,7 @@
         pattern="^(?:ISBN(?:-10)?:?\s)?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$)[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$"
         name="isbn"
         id="isbn"
+        mask="000-0-00-000000-0"
         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" "
         required

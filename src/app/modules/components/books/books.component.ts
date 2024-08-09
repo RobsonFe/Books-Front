@@ -4,11 +4,18 @@ import { Book } from '../../model/book.model';
 import { HomeComponent } from '@/app/home/home.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [HomeComponent, CommonModule, FormsModule],
+  imports: [
+    HomeComponent,
+    CommonModule,
+    FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+  ],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',
 })
@@ -29,6 +36,9 @@ export class BooksComponent implements OnInit {
     },
   };
 
+  sucess: boolean = false;
+  erro: boolean = false;
+
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {}
@@ -40,9 +50,17 @@ export class BooksComponent implements OnInit {
   }
 
   criarBook(): void {
-    this.bookService.criar(this.newBook).subscribe((response) => {
-      console.log('Novo livro criado:', response);
-    });
+    this.bookService.criar(this.newBook).subscribe(
+      (response) => {
+        console.log('Novo livro criado:', response);
+        this.sucess = true;
+        this.limpar();
+      },
+      (error) => {
+        console.error(`Erro ao cadastrar livro: ${error}`);
+        this.erro = true;
+      }
+    );
   }
 
   findBook(name: string): void {
