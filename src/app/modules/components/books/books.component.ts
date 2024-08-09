@@ -55,10 +55,16 @@ export class BooksComponent implements OnInit {
         console.log('Novo livro criado:', response);
         this.sucess = true;
         this.limpar();
+        setTimeout(() => {
+          this.sucess = false;
+        }, 5000);
       },
       (error) => {
         console.error(`Erro ao cadastrar livro: ${error}`);
         this.erro = true;
+        setTimeout(() => {
+          this.erro = false;
+        }, 5000);
       }
     );
   }
