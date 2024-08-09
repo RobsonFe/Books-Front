@@ -25,14 +25,14 @@ export class BooksComponent implements OnInit {
   newBook: Book = {
     id: 0,
     name: '',
-    pages: 0,
-    chapters: 0,
+    pages: '',
+    chapters: '',
     isbn: '',
     publisherName: '',
     author: {
       id: 0,
       name: '',
-      age: 0,
+      age: '',
     },
   };
 
@@ -43,13 +43,21 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  private convertFieldsToNumber(): void {
+    Number(this.newBook.pages);
+    Number(this.newBook.chapters);
+    Number(this.newBook.author.age);
+  }
+
   atualizarBook(id: number): void {
+    this.convertFieldsToNumber();
     this.bookService.atualizar(id, this.newBook).subscribe((response) => {
       console.log('Livro atualizado:', response);
     });
   }
 
   criarBook(): void {
+    this.convertFieldsToNumber();
     this.bookService.criar(this.newBook).subscribe(
       (response) => {
         console.log('Novo livro criado:', response);
@@ -99,14 +107,14 @@ export class BooksComponent implements OnInit {
     this.newBook = {
       id: 0,
       name: '',
-      pages: 0,
-      chapters: 0,
+      pages: '',
+      chapters: '',
       isbn: '',
       publisherName: '',
       author: {
         id: 0,
         name: '',
-        age: 0,
+        age: '',
       },
     };
   }
