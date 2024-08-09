@@ -1,0 +1,7 @@
+.bg-custom {
+  background-color: var(--chip-bg);
+}
+
+.text-custom {
+  color: var(--text);
+}

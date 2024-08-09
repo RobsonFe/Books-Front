@@ -44,4 +44,8 @@ export class BookService {
 
     return this.http.get(`${this.apiUrl}/listar`, { params });
   }
+
+  // listar(page: number, pageSize: number): Observable<Book[]> {
+  //   return this.http.get<Book[]>(`api/books?page=${page}&size=${pageSize}`);
+  // }
 }

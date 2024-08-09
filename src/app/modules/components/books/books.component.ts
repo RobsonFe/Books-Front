@@ -5,6 +5,7 @@ import { HomeComponent } from '@/app/home/home.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-books',
@@ -15,13 +16,12 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
     FormsModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    RouterLink,
   ],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',
 })
 export class BooksComponent implements OnInit {
-  books: any[] = [];
-  bookDetails: any;
   newBook: Book = {
     id: 0,
     name: '',
@@ -49,13 +49,6 @@ export class BooksComponent implements OnInit {
     Number(this.newBook.author.age);
   }
 
-  atualizarBook(id: number): void {
-    this.convertFieldsToNumber();
-    this.bookService.atualizar(id, this.newBook).subscribe((response) => {
-      console.log('Livro atualizado:', response);
-    });
-  }
-
   criarBook(): void {
     this.convertFieldsToNumber();
     this.bookService.criar(this.newBook).subscribe(
@@ -75,32 +68,6 @@ export class BooksComponent implements OnInit {
         }, 5000);
       }
     );
-  }
-
-  findBook(name: string): void {
-    this.bookService.find(name).subscribe((response) => {
-      console.log('Livro encontrado:', response);
-    });
-  }
-
-  buscarBook(id: number): void {
-    this.bookService.buscar(id).subscribe((response) => {
-      this.bookDetails = response;
-      console.log('Detalhes do livro:', this.bookDetails);
-    });
-  }
-
-  deletarBook(id: number): void {
-    this.bookService.deletar(id).subscribe((response) => {
-      console.log('Livro deletado:', response);
-    });
-  }
-
-  listarBooks(page: number, pageSize: number): void {
-    this.bookService.listar(page, pageSize).subscribe((response) => {
-      this.books = response;
-      console.log('Livros listados:', this.books);
-    });
   }
 
   limpar() {
