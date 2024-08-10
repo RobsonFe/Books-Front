@@ -10,6 +10,7 @@ import { BooksComponent } from './modules/components/books/books.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BookService } from './modules/service/book.service';
 import { ImagePreloaderService } from './modules/service/image-preloader.service';
+import { LoginComponent } from './pages/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ import { ImagePreloaderService } from './modules/service/image-preloader.service
     HomeComponent,
     AboutComponent,
     BooksComponent,
-    HttpClientModule,
+    LoginComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
