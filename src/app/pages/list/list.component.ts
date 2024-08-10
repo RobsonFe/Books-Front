@@ -23,7 +23,7 @@ import { Modal } from 'flowbite';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
   private subscriptions: Subscription[] = [];
   books: any[] = [];
   bookDetails: Book | null = null;
@@ -51,11 +51,6 @@ export class ListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const crudModal = document.getElementById('crud-modal');
-    const popupModal = document.getElementById('popup-modal');
-    if (crudModal) new Modal(crudModal);
-    if (popupModal) new Modal(popupModal);
-
     this.subscriptions.push(
       this.paginationService.currentPage$.subscribe((page) => {
         this.listarBooks(page, 5);
@@ -70,6 +65,18 @@ export class ListComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const crudModal = document.getElementById('crud-modal');
+      console.log('crudModal:', crudModal);
+      if (crudModal) {
+        new Modal(crudModal);
+      } else {
+        console.warn('crudModal não encontrado.');
+      }
+    }, 500); // Ajuste o tempo se necessário
   }
 
   listarBooks(page: number, pageSize: number): void {
@@ -96,8 +103,7 @@ export class ListComponent implements OnInit, OnDestroy {
             console.log('Livro atualizado com sucesso!', response);
             this.listarBooks(1, 5);
             this.loadBookDetails(this.bookToUpdate.id);
-            this.time;
-            this.success = false;
+            setTimeout(() => (this.success = false), 3000);
           },
           (error) => {
             this.error = 'Erro ao atualizar o livro';
@@ -114,8 +120,7 @@ export class ListComponent implements OnInit, OnDestroy {
           this.deletou = true;
           console.log('Livro removido com sucesso!');
           this.listarBooks(1, 5); // Recarregar a lista após remoção
-          this.time;
-          this.deletou = false;
+          setTimeout(() => (this.deletou = false), 3000);
         },
         (error) => {
           this.error = 'Erro ao remover o livro';
@@ -130,8 +135,6 @@ export class ListComponent implements OnInit, OnDestroy {
     Number(this.bookToUpdate.chapters);
     Number(this.bookToUpdate.author.age);
   }
-
-  time = setTimeout(() => {}, 5000);
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
