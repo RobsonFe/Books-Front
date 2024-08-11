@@ -29,10 +29,13 @@
           <th scope="col" class="px-6 py-3">Editora</th>
           <th scope="col" class="px-6 py-3">Páginas</th>
           <th scope="col" class="px-6 py-3">
-            <span class="sr-only">Remove</span>
+            <span class="sr-only">View</span>
           </th>
           <th scope="col" class="px-6 py-3">
             <span class="sr-only">Edit</span>
+          </th>
+          <th scope="col" class="px-6 py-3">
+            <span class="sr-only">Remove</span>
           </th>
         </tr>
       </thead>
@@ -48,11 +51,22 @@
             <td class="px-6 py-4">{{ book.author.name }}</td>
             <td class="px-6 py-4">{{ book.publisherName }}</td>
             <td class="px-6 py-4">{{ book.pages }}</td>
+            <td class="px-6 py-4">
+              <button
+                class="font-medium text-blue-600 hover:underline"
+                type="button"
+                (click)="openViewModal(book)"
+              >
+                Visualizar
+              </button>
+            </td>
+
             <td class="px-6 py-4 text-right">
               <button
                 class="font-medium text-blue-600 hover:underline"
                 type="button"
                 (click)="openEditModal(book)"
+                routerLink="/list/{{ book.id }}"
               >
                 Editar
               </button>
@@ -77,61 +91,133 @@
 <!-- Modal para Editar Livro -->
 <app-modal [isOpen]="isEditModalOpen" (close)="closeEditModal()">
   <h2 class="text-xl font-bold">Editar Livro</h2>
-  <form (ngSubmit)="updateBook()">
-    <div class="mb-4">
-      <label for="name" class="block text-sm font-medium text-gray-700"
-        >Nome</label
-      >
-      <input
-        id="name"
-        [(ngModel)]="bookToUpdate.name"
-        name="name"
-        class="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-        required
-      />
+  <form class="p-4 md:p-5" (ngSubmit)="updateBook()">
+    <div class="grid gap-4 mb-4 grid-cols-2">
+      <div class="col-span-2">
+        <label
+          for="name"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Nome do Livro</label
+        >
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="O Senhor dos Anéis"
+          required=""
+          [(ngModel)]="bookToUpdate.name"
+        />
+      </div>
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="pagina"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Páginas do livro</label
+        >
+        <input
+          type="text"
+          name="pagina"
+          id="pagina"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="Ex: 250"
+          required=""
+          [(ngModel)]="bookToUpdate.pages"
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="capitulos"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Capitulos</label
+        >
+        <input
+          type="text"
+          name="capitulos"
+          id="capitulos"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="59 anos"
+          required=""
+          [(ngModel)]="bookToUpdate.chapters"
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="isbn"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ISBN</label
+        >
+        <input
+          type="text"
+          name="isbn"
+          id="isbn"
+          mask="000-0-00-000000-0"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="978-3-16-148411-7"
+          required=""
+          [(ngModel)]="bookToUpdate.isbn"
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="idade"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Idade</label
+        >
+        <input
+          type="text"
+          name="idade"
+          id="idade"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="59 anos"
+          required=""
+          [(ngModel)]="bookToUpdate.author.age"
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label
+          for="editora"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Editora</label
+        >
+        <input
+          type="text"
+          name="editora"
+          id="editora"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="HarperCollins"
+          required=""
+          [(ngModel)]="bookToUpdate.publisherName"
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label
+          for="autor"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Autor do Livro</label
+        >
+        <input
+          type="text"
+          name="autor"
+          id="autor"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="HarperCollins"
+          required=""
+          [(ngModel)]="bookToUpdate.author.name"
+        />
+      </div>
     </div>
-    <div class="mb-4">
-      <label for="author" class="block text-sm font-medium text-gray-700"
-        >Autor</label
-      >
-      <input
-        id="author"
-        [(ngModel)]="bookToUpdate.author.name"
-        name="author"
-        class="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-        required
-      />
-    </div>
-    <div class="mb-4">
-      <label for="publisher" class="block text-sm font-medium text-gray-700"
-        >Editora</label
-      >
-      <input
-        id="publisher"
-        [(ngModel)]="bookToUpdate.publisherName"
-        name="publisher"
-        class="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-        required
-      />
-    </div>
-    <div class="mb-4">
-      <label for="pages" class="block text-sm font-medium text-gray-700"
-        >Páginas</label
-      >
-      <input
-        id="pages"
-        type="text"
-        [(ngModel)]="bookToUpdate.pages"
-        name="pages"
-        class="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-        required
-      />
-    </div>
-    <div class="flex justify-end">
-      <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">
-        Atualizar
-      </button>
-    </div>
+    <button
+      type="submit"
+      class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Atualizar
+    </button>
   </form>
 </app-modal>
 
@@ -139,7 +225,10 @@
 <app-modal [isOpen]="isDeleteModalOpen" (close)="closeDeleteModal()">
   <h2 class="text-xl font-bold">Confirmar Exclusão</h2>
   <p class="mt-4">
-    Você tem certeza de que deseja excluir o livro "{{ bookToDelete?.name }}"?
+    Você tem certeza de que deseja excluir o livro "<strong>{{
+      bookToDelete?.name
+    }}</strong>
+    "?
   </p>
   <div class="flex justify-end mt-4">
     <button
