@@ -1,3 +1,4 @@
+import { Menssagens } from './../../enum/constrants.enum';
 import { HomeComponent } from '@/app/home/home.component';
 import { User } from '@/app/modules/model/user.model';
 import { UserService } from '@/app/modules/service/user.service';
@@ -20,6 +21,9 @@ export class FormComponent implements OnInit {
     password: '',
     confirmPassword: '',
   };
+  succes = false;
+  erro = false;
+  message = '';
 
   constructor(private userService: UserService) {}
 
@@ -27,14 +31,22 @@ export class FormComponent implements OnInit {
 
   createUser(): void {
     console.log('Dados do Usuário:', this.newUser);
-    if (this.newUser.password === this.newUser.confirmPassword) {
+    if (
+      this.newUser.password === this.newUser.confirmPassword &&
+      this.newUser.password.length > 8
+    ) {
       console.log(
         `Conta Criada com Sucesso! Nome: ${this.newUser.name}, Email: ${this.newUser.email}`
       );
+      this.succes = true;
       this.limpar();
+      setTimeout(() => (this.succes = false), 5000);
     } else {
       console.log('As senhas não são iguais');
+      this.erro = true;
+      this.message = Menssagens.ERRO_SENHA;
       this.limpar();
+      setTimeout(() => (this.erro = false), 5000);
     }
   }
 
