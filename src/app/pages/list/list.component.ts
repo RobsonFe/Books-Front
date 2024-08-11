@@ -91,7 +91,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
   updateBook(): void {
     console.log('Método updateBook chamado');
-    if (this.bookDetails) {
+    console.log('ID do livro a ser atualizado:', this.bookToUpdate.id);
+    console.log('Dados do livro a ser atualizado:', this.bookToUpdate);
+    if (this.bookToUpdate) {
       this.convertFieldsToNumber();
       console.log('Atualizando livro com:', this.bookToUpdate);
       this.bookService
