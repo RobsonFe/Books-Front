@@ -7,7 +7,7 @@ import { FooterComponent } from './pages/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { BooksComponent } from './modules/components/books/books.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BookService } from './modules/service/book.service';
 import { ImagePreloaderService } from './modules/service/image-preloader.service';
 import { LoginComponent } from './pages/login/login.component';
