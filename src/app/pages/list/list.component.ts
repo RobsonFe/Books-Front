@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PaginationService } from '@/app/modules/service/pagination.service';
 import { BookService } from '@/app/modules/service/book.service';
 import { Book } from '@/app/modules/model/book.model';
@@ -8,22 +8,26 @@ import { PaginationComponent } from '@/app/modules/components/pagination/paginat
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { Modal } from 'flowbite';
+import { ModalComponent } from '@/app/modules/components/modal/modal.component';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [
+    HomeComponent,
+    ModalComponent,
     CommonModule,
     HomeComponent,
     PaginationComponent,
-    RouterLink,
     FormsModule,
+    RouterLink,
+    NgxMaskDirective,
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
 })
-export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ListComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   books: any[] = [];
   bookDetails: Book | null = null;
@@ -40,6 +44,11 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
       age: '',
     },
   };
+  bookToDelete: Book | null = null;
+  isEditModalOpen: boolean = false;
+  isDeleteModalOpen: boolean = false;
+  isViewModalOpen = false;
+  bookToView: any;
   success: boolean = false;
   deletou: boolean = false;
   error: string = '';
@@ -67,18 +76,6 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      const crudModal = document.getElementById('crud-modal');
-      console.log('crudModal:', crudModal);
-      if (crudModal) {
-        new Modal(crudModal);
-      } else {
-        console.warn('crudModal não encontrado.');
-      }
-    }, 500); // Ajuste o tempo se necessário
-  }
-
   listarBooks(page: number, pageSize: number): void {
     this.bookService.listar(page - 1, pageSize).subscribe((response: any) => {
       this.books = response.content || [];
@@ -93,16 +90,19 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   updateBook(): void {
+    console.log('Método updateBook chamado');
     if (this.bookDetails) {
       this.convertFieldsToNumber();
+      console.log('Atualizando livro com:', this.bookToUpdate);
       this.bookService
         .atualizar(this.bookToUpdate.id, this.bookToUpdate)
         .subscribe(
           (response) => {
+            console.log('Resposta da atualização:', response);
             this.success = true;
-            console.log('Livro atualizado com sucesso!', response);
             this.listarBooks(1, 5);
             this.loadBookDetails(this.bookToUpdate.id);
+            this.closeEditModal();
             setTimeout(() => (this.success = false), 3000);
           },
           (error) => {
@@ -114,12 +114,13 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   confirmDelete(): void {
-    if (this.bookDetails) {
-      this.bookService.deletar(this.bookDetails.id).subscribe(
+    if (this.bookToDelete) {
+      this.bookService.deletar(this.bookToDelete.id).subscribe(
         () => {
           this.deletou = true;
           console.log('Livro removido com sucesso!');
           this.listarBooks(1, 5); // Recarregar a lista após remoção
+          this.closeDeleteModal();
           setTimeout(() => (this.deletou = false), 3000);
         },
         (error) => {
@@ -128,6 +129,36 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       );
     }
+  }
+
+  openEditModal(book: Book): void {
+    this.bookToUpdate = { ...book };
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+  }
+
+  openDeleteModal(book: Book): void {
+    this.bookToDelete = book;
+    this.isDeleteModalOpen = true;
+  }
+
+  closeDeleteModal(): void {
+    this.isDeleteModalOpen = false;
+  }
+
+  // Função para abrir o modal de visualização
+  openViewModal(book: any): void {
+    this.bookToView = book;
+    this.isViewModalOpen = true;
+  }
+
+  // Função para fechar o modal de visualização
+  closeViewModal(): void {
+    this.isViewModalOpen = false;
+    this.bookToView = null;
   }
 
   private convertFieldsToNumber(): void {

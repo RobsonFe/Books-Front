@@ -7,15 +7,15 @@
       *ngIf="success"
     >
       <span class="font-medium">O Livro foi Atualizado!</span> Aproveite o nosso
-      o catálogo de livros.
+      catálogo de livros.
     </div>
     <div
       class="p-4 mb-4 text-sm text-custom-font-color rounded-lg bg-custom-bg-color"
       role="alert"
       *ngIf="deletou"
     >
-      <span class="font-medium">O Livro foi Deletado!</span> O nosso o catálogo
-      de livros foi atualizado.
+      <span class="font-medium">O Livro foi Deletado!</span> O nosso catálogo de
+      livros foi atualizado.
     </div>
     <table
       class="w-full text-sm text-left rtl:text-right text-custom-font-color"
@@ -29,10 +29,13 @@
           <th scope="col" class="px-6 py-3">Editora</th>
           <th scope="col" class="px-6 py-3">Páginas</th>
           <th scope="col" class="px-6 py-3">
-            <span class="sr-only">Remove</span>
+            <span class="sr-only">View</span>
           </th>
           <th scope="col" class="px-6 py-3">
             <span class="sr-only">Edit</span>
+          </th>
+          <th scope="col" class="px-6 py-3">
+            <span class="sr-only">Remove</span>
           </th>
         </tr>
       </thead>
@@ -48,26 +51,77 @@
             <td class="px-6 py-4">{{ book.author.name }}</td>
             <td class="px-6 py-4">{{ book.publisherName }}</td>
             <td class="px-6 py-4">{{ book.pages }}</td>
-            <td class="px-6 py-4 text-right">
+            <td class="px-6 py-4">
               <button
-                data-modal-target="crud-modal"
-                data-modal-toggle="crud-modal"
                 class="font-medium text-blue-600 hover:underline"
                 type="button"
+                (click)="openViewModal(book)"
+              >
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+
+            <td class="px-6 py-4 text-right">
+              <button
+                class="font-medium text-blue-600 hover:underline"
+                type="button"
+                (click)="openEditModal(book)"
                 routerLink="/list/{{ book.id }}"
               >
-                Editar
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                  />
+                </svg>
               </button>
             </td>
             <td class="px-6 py-4">
               <button
-                data-modal-target="popup-modal"
-                data-modal-toggle="popup-modal"
                 class="font-medium text-red-600 hover:underline"
                 type="button"
-                routerLink="/list/{{ book.id }}"
+                (click)="openDeleteModal(book)"
               >
-                Remover
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
               </button>
             </td>
           </tr>
@@ -78,245 +132,280 @@
   </div>
 </div>
 
-<!-- Main modal -->
-<div
-  id="crud-modal"
-  tabindex="-1"
-  aria-hidden="true"
-  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-  *ngIf="bookDetails"
->
-  <div class="relative p-4 w-full max-w-md max-h-full">
-    <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <!-- Modal header -->
-      <div
-        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
-      >
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-          Edite o Livro
-        </h3>
-        <button
-          type="button"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-toggle="crud-modal"
+<!-- Modal para Visualizar Livro -->
+<app-modal [isOpen]="isViewModalOpen" (close)="closeViewModal()">
+  <h2 class="text-xl font-bold">Visualizar Livro</h2>
+  <div class="p-4 md:p-5">
+    <div class="grid gap-4 mb-4 grid-cols-2">
+      <div class="col-span-2">
+        <label
+          for="viewName"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Nome do Livro</label
         >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
+        <input
+          type="text"
+          id="viewName"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.name"
+          readonly
+        />
       </div>
-      <!-- Modal body -->
-      <form class="p-4 md:p-5" (ngSubmit)="updateBook()">
-        <div class="grid gap-4 mb-4 grid-cols-2">
-          <div class="col-span-2">
-            <label
-              for="name"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Nome do Livro</label
-            >
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="O Senhor dos Anéis"
-              required=""
-              [(ngModel)]="bookToUpdate.name"
-            />
-          </div>
-          <div class="col-span-2 sm:col-span-1">
-            <label
-              for="pagina"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Páginas do livro</label
-            >
-            <input
-              type="text"
-              name="pagina"
-              id="pagina"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Ex: 250"
-              required=""
-              [(ngModel)]="bookToUpdate.pages"
-            />
-          </div>
-
-          <div class="col-span-2 sm:col-span-1">
-            <label
-              for="capitulos"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Capitulos</label
-            >
-            <input
-              type="text"
-              name="capitulos"
-              id="capitulos"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="59 anos"
-              required=""
-              [(ngModel)]="bookToUpdate.chapters"
-            />
-          </div>
-
-          <div class="col-span-2 sm:col-span-1">
-            <label
-              for="isbn"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >ISBN</label
-            >
-            <input
-              type="text"
-              name="isbn"
-              id="isbn"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="978-3-16-148411-7"
-              required=""
-              [(ngModel)]="bookToUpdate.isbn"
-            />
-          </div>
-
-          <div class="col-span-2 sm:col-span-1">
-            <label
-              for="idade"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Idade</label
-            >
-            <input
-              type="text"
-              name="idade"
-              id="idade"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="59 anos"
-              required=""
-              [(ngModel)]="bookToUpdate.author.age"
-            />
-          </div>
-
-          <div class="col-span-2">
-            <label
-              for="editora"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Editora</label
-            >
-            <input
-              type="text"
-              name="editora"
-              id="editora"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="HarperCollins"
-              required=""
-              [(ngModel)]="bookToUpdate.publisherName"
-            />
-          </div>
-
-          <div class="col-span-2">
-            <label
-              for="autor"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Autor do Livro</label
-            >
-            <input
-              type="text"
-              name="autor"
-              id="autor"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="HarperCollins"
-              required=""
-              [(ngModel)]="bookToUpdate.author.name"
-            />
-          </div>
-        </div>
-        <button
-          type="submit"
-          class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="viewPages"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Páginas do Livro</label
         >
-          Atualizar
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
+        <input
+          type="text"
+          id="viewPages"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.pages"
+          readonly
+        />
+      </div>
 
-<!-- Remover -->
-<div
-  id="popup-modal"
-  tabindex="-1"
-  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
->
-  <div class="relative p-4 w-full max-w-md max-h-full">
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <button
-        type="button"
-        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-        data-modal-hide="popup-modal"
-      >
-        <svg
-          class="w-3 h-3"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="viewChapters"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Capítulos</label
         >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-          />
-        </svg>
-        <span class="sr-only">Close modal</span>
-      </button>
-      <div class="p-4 md:p-5 text-center">
-        <svg
-          class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
+        <input
+          type="text"
+          id="viewChapters"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.chapters"
+          readonly
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="viewIsbn"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ISBN</label
         >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-          Tem certeza que deseja deletar esse livro?
-          <strong>{{ bookDetails?.name }}</strong>
-        </h3>
-        <button
-          (click)="confirmDelete()"
-          data-modal-hide="popup-modal"
-          type="button"
-          class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+        <input
+          type="text"
+          id="viewIsbn"
+          mask="000-0-00-000000-0"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.isbn"
+          readonly
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="viewAuthorAge"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Idade do Autor</label
         >
-          Sim, eu tenho
-        </button>
-        <button
-          data-modal-hide="popup-modal"
-          type="button"
-          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        <input
+          type="text"
+          id="viewAuthorAge"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.author.age"
+          readonly
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label
+          for="viewPublisher"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Editora</label
         >
-          Não, cancelar
-        </button>
+        <input
+          type="text"
+          id="viewPublisher"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.publisherName"
+          readonly
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label
+          for="viewAuthorName"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Autor do Livro</label
+        >
+        <input
+          type="text"
+          id="viewAuthorName"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          [value]="bookToView?.author.name"
+          readonly
+        />
       </div>
     </div>
+    <button
+      type="button"
+      (click)="closeViewModal()"
+      class="text-white inline-flex items-center bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+    >
+      Fechar
+    </button>
   </div>
-</div>
+</app-modal>
+
+<!-- Modal para Editar Livro -->
+<app-modal [isOpen]="isEditModalOpen" (close)="closeEditModal()">
+  <h2 class="text-xl font-bold">Editar Livro</h2>
+  <form class="p-4 md:p-5" (ngSubmit)="updateBook()">
+    <div class="grid gap-4 mb-4 grid-cols-2">
+      <div class="col-span-2">
+        <label
+          for="name"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Nome do Livro</label
+        >
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="O Senhor dos Anéis"
+          required=""
+          [(ngModel)]="bookToUpdate.name"
+        />
+      </div>
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="pagina"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Páginas do livro</label
+        >
+        <input
+          type="text"
+          name="pagina"
+          id="pagina"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="Ex: 250"
+          required=""
+          [(ngModel)]="bookToUpdate.pages"
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="capitulos"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Capitulos</label
+        >
+        <input
+          type="text"
+          name="capitulos"
+          id="capitulos"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="59 anos"
+          required=""
+          [(ngModel)]="bookToUpdate.chapters"
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="isbn"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ISBN</label
+        >
+        <input
+          type="text"
+          name="isbn"
+          id="isbn"
+          mask="000-0-00-000000-0"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="978-3-16-148411-7"
+          required=""
+          [(ngModel)]="bookToUpdate.isbn"
+        />
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <label
+          for="idade"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Idade</label
+        >
+        <input
+          type="text"
+          name="idade"
+          id="idade"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="59 anos"
+          required=""
+          [(ngModel)]="bookToUpdate.author.age"
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label
+          for="editora"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Editora</label
+        >
+        <input
+          type="text"
+          name="editora"
+          id="editora"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="HarperCollins"
+          required=""
+          [(ngModel)]="bookToUpdate.publisherName"
+        />
+      </div>
+
+      <div class="col-span-2">
+        <label
+          for="autor"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Autor do Livro</label
+        >
+        <input
+          type="text"
+          name="autor"
+          id="autor"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          placeholder="HarperCollins"
+          required=""
+          [(ngModel)]="bookToUpdate.author.name"
+        />
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Atualizar
+    </button>
+  </form>
+</app-modal>
+
+<!-- Modal para Confirmar Exclusão -->
+<app-modal [isOpen]="isDeleteModalOpen" (close)="closeDeleteModal()">
+  <h2 class="text-xl font-bold">Confirmar Exclusão</h2>
+  <p class="mt-4">
+    Você tem certeza de que deseja excluir o livro "<strong>{{
+      bookToDelete?.name
+    }}</strong>
+    "?
+  </p>
+  <div class="flex justify-end mt-4">
+    <button
+      (click)="confirmDelete()"
+      class="px-4 py-2 bg-red-500 text-white rounded-lg mr-2"
+    >
+      Excluir
+    </button>
+    <button
+      (click)="closeDeleteModal()"
+      class="px-4 py-2 bg-gray-300 text-black rounded-lg"
+    >
+      Cancelar
+    </button>
+  </div>
+</app-modal>
