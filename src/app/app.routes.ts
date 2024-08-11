@@ -6,10 +6,12 @@ import { GreetingsComponent } from './pages/greetings/greetings.component';
 import { BooksComponent } from './modules/components/books/books.component';
 import { ListComponent } from './pages/list/list.component';
 import { LoginComponent } from './pages/login/login.component';
+import { FormComponent } from './pages/form/form.component';
 
 export const routes: Routes = [
   { path: '', component: GreetingsComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: FormComponent },
   { path: 'greetings', component: GreetingsComponent },
   { path: 'books', component: BooksComponent },
   { path: 'navbar', component: NavbarComponent },
