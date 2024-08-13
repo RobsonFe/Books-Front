@@ -10,12 +10,12 @@
 
 /* Estilo para o container do modal */
 .bg-white {
-  background-color: #6b7280; /* Cor de fundo do modal */
+  background-color: var(--card-bg); /* Cor de fundo do modal */
 }
 
 /* Estilo para o texto do modal */
 .text-custom-font-color {
-  color: #010101; /* Cor do texto */
+  color: var(--text); /* Cor do texto */
 }
 
 /* Estilo para o botão de fechar */
@@ -32,11 +32,13 @@ button:hover {
 .close-button {
   top: 1rem; /* Ajuste a distância do topo */
   right: 1rem; /* Ajuste a distância da borda direita */
-  color: #010101; /* Cor do ícone do botão de fechar */
+  color: var(--border); /* Cor do ícone do botão de fechar */
   cursor: pointer; /* Adiciona cursor de ponteiro para indicar que é clicável */
 }
 
 /* Ajuste opcional para o botão de fechar em hover */
 .close-button:hover {
-  color: #ff6f61; /* Cor do ícone do botão de fechar em hover (opcional) */
+  color: var(
+    --primary
+  ); /* Cor do ícone do botão de fechar em hover (opcional) */
 }
