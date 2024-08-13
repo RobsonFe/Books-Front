@@ -7,6 +7,7 @@ import { BooksComponent } from './modules/components/books/books.component';
 import { ListComponent } from './pages/list/list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FormComponent } from './pages/form/form.component';
+import { SobreComponent } from './pages/sobre/sobre.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'books', component: BooksComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'sobre', component: SobreComponent },
   { path: 'dev', component: DeveloperComponent },
   { path: 'list', component: ListComponent },
   { path: 'list/:id', component: ListComponent },

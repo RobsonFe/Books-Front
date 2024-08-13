@@ -6,11 +6,18 @@ import { UserService } from '@/app/modules/service/user.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [HomeComponent, CommonModule, FormsModule, ButtonComponent],
+  imports: [
+    HomeComponent,
+    CommonModule,
+    FormsModule,
+    ButtonComponent,
+    RouterLink,
+  ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
@@ -26,7 +33,7 @@ export class FormComponent implements OnInit {
   erro = false;
   message = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -43,6 +50,7 @@ export class FormComponent implements OnInit {
       this.succes = true;
       this.limpar();
       setTimeout(() => (this.succes = false), 5000);
+      this.router.navigate(['/books']);
     } else {
       console.log('As senhas não são iguais');
       this.erro = true;

@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../service/book.service';
 import { Book } from '../../model/book.model';
@@ -7,18 +8,21 @@ import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../button/button.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-books',
   standalone: true,
   imports: [
     HomeComponent,
+    NavbarComponent,
     CommonModule,
     FormsModule,
     NgxMaskDirective,
     NgxMaskPipe,
     RouterLink,
     ButtonComponent,
+    HttpClientModule,
   ],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',
