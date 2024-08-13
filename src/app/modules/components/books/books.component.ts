@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { RouterLink } from '@angular/router';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-books',
@@ -17,6 +18,7 @@ import { RouterLink } from '@angular/router';
     NgxMaskDirective,
     NgxMaskPipe,
     RouterLink,
+    ButtonComponent,
   ],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',

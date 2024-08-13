@@ -1,5 +1,6 @@
 import { Menssagens } from './../../enum/constrants.enum';
 import { HomeComponent } from '@/app/home/home.component';
+import { ButtonComponent } from '@/app/modules/components/button/button.component';
 import { User } from '@/app/modules/model/user.model';
 import { UserService } from '@/app/modules/service/user.service';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [HomeComponent, CommonModule, FormsModule],
+  imports: [HomeComponent, CommonModule, FormsModule, ButtonComponent],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
@@ -33,7 +34,8 @@ export class FormComponent implements OnInit {
     console.log('Dados do Usuário:', this.newUser);
     if (
       this.newUser.password === this.newUser.confirmPassword &&
-      this.newUser.password.length > 8
+      this.newUser.password.length > 8 &&
+      this.newUser
     ) {
       console.log(
         `Conta Criada com Sucesso! Nome: ${this.newUser.name}, Email: ${this.newUser.email}`
