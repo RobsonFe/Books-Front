@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { NavbarComponent } from './modules/components/navbar/navbar.component';
+import { NavbarComponent } from './templates/navbar/navbar.component';
 import { AboutComponent } from './pages/about/about.component';
 import { DeveloperComponent } from './pages/developer/developer.component';
 import { GreetingsComponent } from './pages/greetings/greetings.component';

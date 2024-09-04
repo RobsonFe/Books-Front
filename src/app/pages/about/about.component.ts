@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProfileComponent } from '../../modules/components/profile/profile.component';
-import { NavbarComponent } from '@/app/modules/components/navbar/navbar.component';
+import { NavbarComponent } from '@/app/templates/navbar/navbar.component';
 
 @Component({
   selector: 'app-about',

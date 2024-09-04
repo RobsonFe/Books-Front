@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '@/app/modules/components/modal/modal.component';
 import { NgxMaskDirective } from 'ngx-mask';
-import { NavbarComponent } from '@/app/modules/components/navbar/navbar.component';
+import { NavbarComponent } from '@/app/templates/navbar/navbar.component';
 
 @Component({
   selector: 'app-list',

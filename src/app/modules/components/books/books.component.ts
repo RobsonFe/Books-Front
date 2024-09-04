@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../button/button.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { NavbarComponent } from '../../../templates/navbar/navbar.component';
 
 @Component({
   selector: 'app-books',

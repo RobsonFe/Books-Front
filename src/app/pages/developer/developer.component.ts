@@ -1,5 +1,5 @@
 import { HomeComponent } from '@/app/home/home.component';
-import { NavbarComponent } from '@/app/modules/components/navbar/navbar.component';
+import { NavbarComponent } from '@/app/templates/navbar/navbar.component';
 import { ProfileComponent } from '@/app/modules/components/profile/profile.component';
 import { Component } from '@angular/core';
 

@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../model/book.model';
+import * as dotenv from 'dotenv';
+import { environment } from '@/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl = 'http://localhost:8080/api/v1/books';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
