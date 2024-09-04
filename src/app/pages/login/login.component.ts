@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     if (this.UserLogin.email && this.UserLogin.password) {
       try {
         console.log('Login realizado com sucesso: ', this.UserLogin);
-        this.router.navigate(['/books']);
+        this.router.navigate(['/home']);
       } catch (error) {
         console.error(`Erro ao realizar o login ${error}`);
         this.loginError = Menssagens.ERRO_LOGIN;

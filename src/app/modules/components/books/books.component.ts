@@ -9,6 +9,7 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../button/button.component';
 import { NavbarComponent } from '../../../templates/navbar/navbar.component';
+import { HeaderComponent } from '@/app/templates/header/header.component';
 
 @Component({
   selector: 'app-books',
@@ -22,7 +23,7 @@ import { NavbarComponent } from '../../../templates/navbar/navbar.component';
     NgxMaskPipe,
     RouterLink,
     ButtonComponent,
-    HttpClientModule,
+    HeaderComponent,
   ],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css',

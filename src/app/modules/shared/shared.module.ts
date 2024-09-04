@@ -10,6 +10,7 @@ import { BooksComponent } from '../components/books/books.component';
 import { LoginComponent } from '@/app/pages/login/login.component';
 import { BookService } from '../service/book.service';
 import { ImagePreloaderService } from '../service/image-preloader.service';
+import { HeaderComponent } from '@/app/templates/header/header.component';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { ImagePreloaderService } from '../service/image-preloader.service';
     SobreComponent,
     BooksComponent,
     LoginComponent,
+    HeaderComponent,
   ],
   exports: [
     NavbarComponent,
@@ -33,6 +35,7 @@ import { ImagePreloaderService } from '../service/image-preloader.service';
     SobreComponent,
     BooksComponent,
     LoginComponent,
+    HeaderComponent,
   ],
   providers: [BookService, ImagePreloaderService],
 })

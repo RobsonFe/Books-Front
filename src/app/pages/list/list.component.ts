@@ -3,7 +3,6 @@ import { PaginationService } from '@/app/modules/service/pagination.service';
 import { BookService } from '@/app/modules/service/book.service';
 import { Book } from '@/app/modules/model/book.model';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from '@/app/home/home.component';
 import { PaginationComponent } from '@/app/modules/components/pagination/pagination.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,16 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '@/app/modules/components/modal/modal.component';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NavbarComponent } from '@/app/templates/navbar/navbar.component';
+import { HeaderComponent } from '@/app/templates/header/header.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [
     NavbarComponent,
-    HomeComponent,
     ModalComponent,
+    HeaderComponent,
     CommonModule,
-    HomeComponent,
     PaginationComponent,
     FormsModule,
     RouterLink,
@@ -62,6 +61,7 @@ export class ListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('ListComponent carregado');
     this.subscriptions.push(
       this.paginationService.currentPage$.subscribe((page) => {
         this.listarBooks(page, 5);
